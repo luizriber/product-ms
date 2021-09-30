@@ -41,6 +41,8 @@ public class ProductsService {
 	// Consulta um produto pelo id
 	public Optional<ProductsDto> findById(Long id) {
 		return ProductsDto.conversorDto(productsRepository.getById(id));
+		
+		//orElse
 	}
 	
 	// Retorna todos os produtos cadastrados

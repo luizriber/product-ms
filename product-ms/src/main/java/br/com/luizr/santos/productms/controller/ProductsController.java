@@ -20,7 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.luizr.santos.productms.controller.dto.ProductsDto;
 import br.com.luizr.santos.productms.controller.form.ProductsForm;
 import br.com.luizr.santos.productms.service.ProductsService;
-import br.com.luizr.santos.productms.validation.ErrorFormDto;
+import br.com.luizr.santos.productms.validation.ErrorValidationHandler;
 
 @RestController
 @RequestMapping("/products")
@@ -28,6 +28,9 @@ public class ProductsController {
 
 	@Autowired
 	private ProductsService productsService;
+	
+	@Autowired
+	private ErrorValidationHandler errorValidationHandler;
 	
 	
 	// Método: POST - Cadastra um novo produto
@@ -75,7 +78,7 @@ public class ProductsController {
 		if(!(min_price == null && max_price == null && q == null)) {
 			return  ResponseEntity.ok(productsService.searchProducts(q, min_price, max_price));
 		}
-		return new ResponseEntity<Object>(new ErrorFormDto(HttpStatus.BAD_REQUEST.value(), "Nenhum parâmetro informado"), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>(errorValidationHandler.errorBadRequest(), HttpStatus.BAD_REQUEST);
 	}
 	
 	

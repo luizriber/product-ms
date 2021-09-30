@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import br.com.luizr.santos.productms.model.Products;
 
+
 public class ProductsForm {
 	
 	@NotNull(message = "O campo name não pode ser nulo")

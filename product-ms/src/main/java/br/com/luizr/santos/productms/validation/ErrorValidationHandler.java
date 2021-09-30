@@ -1,7 +1,6 @@
 package br.com.luizr.santos.productms.validation;
 
 import javax.persistence.EntityNotFoundException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,11 +24,9 @@ public class ErrorValidationHandler {
 		return new ErrorFormDto(HttpStatus.NOT_FOUND.value(), "Nenhuma dado encontrada com o parâmetro informado");
 	}
 
-	//Retorna a mensagem de erro "not found", quando um recurso não existir com o id de parametro informado
-	@ResponseStatus(code = HttpStatus.NOT_FOUND) // seta o HTTP Code de response, nesse caso 404
-	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public ErrorFormDto emptyResultDataAccessException(EmptyResultDataAccessException exception) {
-		System.out.println("Passou 2");
-		return new ErrorFormDto(HttpStatus.NOT_FOUND.value(), exception.getLocalizedMessage());
+	//Retorna a mensagem de erro "bad request", quando não é passsado nenhum parametro no request
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST) // seta o HTTP Code de response, nesse caso 400
+	public ErrorFormDto errorBadRequest() {
+		return new ErrorFormDto(HttpStatus.BAD_REQUEST.value(), "Nenhum parâmetro informado");
 	}
 }
